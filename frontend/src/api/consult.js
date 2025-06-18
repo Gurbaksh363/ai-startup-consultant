@@ -1,7 +1,8 @@
 // API call to backend for consulting
-const API_URL = import.meta.env.PROD 
-  ? 'https://ai-startup-consultant-backend.onrender.com'  // Replace with your actual Render backend URL
-  : 'http://127.0.0.1:8002';
+const API_URL = import.meta.env.VITE_API_URL || 
+  (import.meta.env.PROD 
+    ? 'https://ai-startup-consultant.onrender.com'  // Your actual Render backend URL
+    : 'http://127.0.0.1:8002');  // Local development
 
 export async function submitIdea(idea) {
   try {
