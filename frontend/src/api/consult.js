@@ -1,7 +1,7 @@
 // API call to backend for consulting
 const API_URL = import.meta.env.PROD 
-  ? window.location.origin + '/api'
-  : 'http://127.0.0.1:8001';
+  ? 'https://your-backend-name.onrender.com'  // Replace with your Render backend URL
+  : 'http://127.0.0.1:8002';
 
 export async function submitIdea(idea) {
   try {
