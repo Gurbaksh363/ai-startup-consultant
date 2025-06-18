@@ -1,41 +1,70 @@
 # AI Startup Consultant 🚀
 
-This project is a full-stack AI-powered startup consultant that provides comprehensive business analysis for startup ideas.
+A full-stack AI-powered startup consultant that provides comprehensive business analysis and actionable insights for startup ideas using CrewAI agents.
 
-## Features
-- 📊 **Market Research & Trends** - Real-time market analysis
-- 🏢 **Competitor Analysis** - Identify and analyze competitors
-- ✅ **Idea Validation & Scoring** - AI-powered validation
-- 💡 **Investor Pitch Outline** - Generate compelling pitch decks
-- 📧 **Outreach Email Templates** - Professional outreach content
-- 📈 **Data Visualizations** - Charts and insights
+## 🎯 What It Does
 
-## Tech Stack
-- **Backend:** Python, FastAPI, CrewAI, Tavily, Appwrite
-- **Frontend:** React, Vite, Chart.js, React-Markdown
+Enter your startup idea and get:
+- 📊 **Market Research & Analysis** - Current trends, size, and opportunities
+- 🏢 **Competitor Analysis** - Identify competitors and market positioning
+- ✅ **Idea Validation & Scoring** - AI-powered feasibility assessment
+- 💡 **Investor Pitch Outline** - Professional pitch deck structure
+- 📧 **Outreach Templates** - Email templates for investors and partners
+- 📈 **Visual Insights** - Charts and data visualizations
 
-## Deployment
-This project is optimized for **Vercel** deployment with serverless functions.
+## 🛠️ Tech Stack
 
-### Environment Variables Required:
+### Backend
+- **FastAPI** - High-performance Python web framework
+- **CrewAI** - Multi-agent AI system orchestration
+- **Together AI** - LLM inference (Llama 3 70B)
+- **Tavily** - Real-time web search and research
+- **Appwrite** - Backend-as-a-Service for data persistence
+
+### Frontend  
+- **React + Vite** - Modern frontend development
+- **Chart.js** - Interactive data visualizations
+- **React-Markdown** - Rich markdown rendering
+- **Modern CSS** - Responsive, professional UI
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- API keys for Together AI, Tavily, and Appwrite
+
+### Local Development
+```bash
+# Clone and setup backend
+cd backend
+pip install -r requirements.txt
+cp .env.example .env  # Add your API keys
+uvicorn main:app --reload --port 8002
+
+# Setup frontend (new terminal)
+cd frontend
+npm install
+npm run dev
+```
+
+Visit `http://localhost:5173` to use the application.
+
+## 🌐 Deployment
+
+This project is optimized for deployment on:
+- **Backend**: Render (free tier)
+- **Frontend**: Netlify (free tier)
+
+**📋 See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment instructions.**
+
+## 🔧 Configuration
+
+Create a `.env` file in the backend directory:
 ```env
-TAVILY_API_KEY=your_tavily_key
-OPENAI_API_KEY=your_together_ai_key
-OPENAI_API_BASE=https://api.together.xyz/v1
-APPWRITE_ENDPOINT=https://fra.cloud.appwrite.io/v1
+TOGETHER_API_KEY=your_together_ai_key
+APPWRITE_ENDPOINT=your_appwrite_endpoint  
 APPWRITE_PROJECT_ID=your_project_id
 APPWRITE_API_KEY=your_api_key
 APPWRITE_DATABASE_ID=your_database_id
-APPWRITE_COLLECTION_ID=your_collection_id
 ```
-
-## Local Development
-```bash
-# Backend
-cd backend && uvicorn main:app --reload --port 8001
-
-# Frontend  
-cd frontend && npm run dev
-```
-
-See `/backend/README.md` and `/frontend/README.md` for detailed setup instructions.
