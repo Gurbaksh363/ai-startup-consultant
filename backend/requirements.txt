@@ -1,0 +1,6 @@
+# requirements.txt for backend
+fastapi
+uvicorn
+appwrite
+crewai
+requests
