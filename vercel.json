@@ -1,15 +1,16 @@
 {
+  "version": 2,
   "builds": [
+    {
+      "src": "backend/main.py",
+      "use": "@vercel/python"
+    },
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "backend/main.py",
-      "use": "@vercel/python"
     }
   ],
   "routes": [
@@ -26,8 +27,5 @@
     "backend/main.py": {
       "maxDuration": 60
     }
-  },
-  "installCommand": "cd frontend && npm install",
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/dist"
+  }
 }
