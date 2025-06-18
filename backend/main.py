@@ -7,21 +7,35 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
-from agents.market import run_market_agent
-from agents.competitor import run_competitor_agent
-from agents.validation import run_validation_agent
-from agents.pitch import run_pitch_agent
-from agents.outreach import run_outreach_agent
-from services.appwrite_client import save_session
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
+# Import agents only when needed to reduce memory footprint
+def get_agents():
+    from agents.market import run_market_agent
+    from agents.competitor import run_competitor_agent
+    from agents.validation import run_validation_agent
+    from agents.pitch import run_pitch_agent
+    from agents.outreach import run_outreach_agent
+    return run_market_agent, run_competitor_agent, run_validation_agent, run_pitch_agent, run_outreach_agent
+
+def get_appwrite():
+    try:
+        from services.appwrite_client import save_session
+        return save_session
+    except:
+        return lambda x: None  # Return dummy function if Appwrite is unavailable
+
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(
+    title="AI Startup Consultant",
+    description="AI-powered startup analysis and consulting",
+    version="1.0.0"
+)
 
 # Thread pool for running sync agents
-executor = ThreadPoolExecutor(max_workers=5)
+executor = ThreadPoolExecutor(max_workers=3)  # Reduced workers to save memory
 
 # Allow frontend (multiple ports for development + Vercel) to access backend
 app.add_middleware(
@@ -63,6 +77,10 @@ async def health_check():
 @app.post("/consult")
 async def consult_idea(request: IdeaRequest):
     try:
+        # Get agents dynamically to reduce memory footprint
+        run_market_agent, run_competitor_agent, run_validation_agent, run_pitch_agent, run_outreach_agent = get_agents()
+        save_session = get_appwrite()
+        
         loop = asyncio.get_event_loop()
         
         # Run all agents concurrently using thread pool
